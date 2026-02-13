@@ -1,0 +1,28 @@
+# DocuMind .NET Core Backend
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+# Copy solution and project files
+COPY server/DocuMind.sln .
+COPY server/DocuMind.API/DocuMind.API.csproj DocuMind.API/
+COPY server/DocuMind.Application/DocuMind.Application.csproj DocuMind.Application/
+COPY server/DocuMind.Domain/DocuMind.Domain.csproj DocuMind.Domain/
+COPY server/DocuMind.Infrastructure/DocuMind.Infrastructure.csproj DocuMind.Infrastructure/
+
+# Restore
+RUN dotnet restore
+
+# Copy everything and build
+COPY server/ .
+RUN dotnet publish DocuMind.API/DocuMind.API.csproj -c Release -o /app/publish --no-restore
+
+# Runtime image
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Create storage directory
+RUN mkdir -p /app/Storage/Documents
+
+EXPOSE 5000
+ENTRYPOINT ["dotnet", "DocuMind.API.dll"]

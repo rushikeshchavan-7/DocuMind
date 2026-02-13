@@ -1,0 +1,17 @@
+# DocuMind Angular Frontend
+FROM node:20-alpine AS build
+WORKDIR /app
+
+COPY client/documind-client/package*.json ./
+RUN npm ci
+
+COPY client/documind-client/ .
+RUN npx ng build --configuration=production
+
+# Serve with nginx
+FROM nginx:alpine
+COPY --from=build /app/dist/documind-client/browser /usr/share/nginx/html
+COPY docker/nginx.conf /etc/nginx/conf.d/default.conf
+
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]

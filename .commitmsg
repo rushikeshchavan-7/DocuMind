@@ -1,0 +1,3 @@
+Initial commit: DocuMind - AI-Powered Document Intelligence Platform
+
+Full-stack enterprise application with Angular 21, .NET 10 Clean Architecture backend, Python FastAPI AI engine with RAG (LangChain + ChromaDB), Groq cloud LLM support, Smart Search, Analytics, Chat Sessions, Docker and cloud deployment configs.

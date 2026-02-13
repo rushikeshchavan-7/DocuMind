@@ -1,0 +1,37 @@
+# ─── .NET ─────────────────────────────────────────────────────
+server/**/bin/
+server/**/obj/
+server/**/.vs/
+server/**/Storage/
+server/**/appsettings.Development.json
+
+# ─── Node / Angular ──────────────────────────────────────────
+client/**/node_modules/
+client/**/dist/
+client/**/.angular/
+client/**/.vscode/
+
+# ─── Python ──────────────────────────────────────────────────
+ai-engine/__pycache__/
+ai-engine/**/__pycache__/
+ai-engine/*.pyc
+ai-engine/.env
+ai-engine/data/
+
+# ─── Docker ──────────────────────────────────────────────────
+docker/postgres_data/
+
+# ─── IDE ─────────────────────────────────────────────────────
+.vs/
+.vscode/
+.idea/
+*.suo
+*.user
+*.swp
+*.swo
+*~
+
+# ─── OS ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini

@@ -1,0 +1,47 @@
+# Render.com Blueprint — deploy both backend services
+# Usage: Connect this repo to Render, it auto-detects this file
+
+services:
+  # .NET Backend API
+  - type: web
+    name: documind-api
+    runtime: docker
+    dockerfilePath: ./server/Dockerfile
+    dockerContext: ./server
+    plan: free
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: ConnectionStrings__DefaultConnection
+        sync: false  # Set manually in Render dashboard
+      - key: Jwt__Secret
+        generateValue: true
+      - key: Security__EncryptionKey
+        generateValue: true
+      - key: AiEngine__BaseUrl
+        value: https://documind-ai.onrender.com
+      - key: ASPNETCORE_URLS
+        value: http://+:8080
+
+  # Python AI Engine
+  - type: web
+    name: documind-ai
+    runtime: docker
+    dockerfilePath: ./ai-engine/Dockerfile
+    dockerContext: ./ai-engine
+    plan: free
+    envVars:
+      - key: LLM_PROVIDER
+        value: groq
+      - key: EMBED_PROVIDER
+        value: default
+      - key: GROQ_API_KEY
+        sync: false  # Set manually in Render dashboard
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: CORS_ORIGINS
+        value: https://documind.netlify.app,https://documind-api.onrender.com
+      - key: CHROMA_PERSIST_DIR
+        value: ./data/chromadb
+      - key: UPLOAD_DIR
+        value: ./data/uploads

@@ -31,8 +31,10 @@ builder.Services.AddAuthorization();
 // CORS
 builder.Services.AddCors(options =>
 {
+    var allowedOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>()
+        ?? new[] { "http://localhost:4200", "https://documind.netlify.app" };
     options.AddPolicy("AllowClient", policy =>
-        policy.WithOrigins("http://localhost:4200", "https://documind.netlify.app")
+        policy.WithOrigins(allowedOrigins)
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials());

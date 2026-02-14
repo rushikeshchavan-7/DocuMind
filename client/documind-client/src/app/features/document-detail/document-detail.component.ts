@@ -128,6 +128,30 @@ import { DatePipe, DecimalPipe } from '@angular/common';
     @media (max-width: 1024px) {
       .detail-grid { grid-template-columns: 1fr; }
     }
+
+    @media (max-width: 768px) {
+      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .page-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      .page-title {
+        font-size: 18px;
+        word-break: break-word;
+        overflow-wrap: break-word;
+      }
+      .header-actions {
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 6px;
+        .btn { flex: 1; min-width: 0; justify-content: center; font-size: 12px; }
+      }
+      .detail-grid { grid-template-columns: 1fr; gap: 12px; }
+      .info-card, .text-card { padding: 16px; }
+      .info-row { font-size: 12px; }
+      .text-preview { font-size: 11px; max-height: 300px; }
+    }
   `],
 })
 export class DocumentDetailComponent implements OnInit {

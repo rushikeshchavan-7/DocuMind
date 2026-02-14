@@ -242,6 +242,26 @@ import { AuthService } from '../../core/services/auth.service';
       font-size: 11px;
       color: var(--text-muted);
     }
+
+    @media (max-width: 480px) {
+      .auth-card {
+        margin: 12px;
+        padding: 24px 20px;
+        max-width: 100%;
+      }
+      .auth-title { font-size: 20px; }
+      .auth-subtitle { font-size: 13px; }
+      .logo-icon { width: 48px; height: 48px; margin-bottom: 12px; }
+      .form-input { font-size: 16px; padding: 12px 14px; }
+      .submit-btn { padding: 12px; font-size: 14px; }
+      .auth-footer { flex-direction: column; gap: 2px; }
+      .security-note {
+        flex-direction: column;
+        text-align: center;
+        gap: 4px;
+        span { font-size: 10px; }
+      }
+    }
   `],
 })
 export class AuthComponent {

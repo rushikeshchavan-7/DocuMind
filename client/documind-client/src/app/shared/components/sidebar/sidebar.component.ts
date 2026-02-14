@@ -311,6 +311,7 @@ import { AuthService } from '../../../core/services/auth.service';
         transform: translateX(-100%);
         transition: transform 0.3s ease;
         z-index: 150;
+        width: 260px;
 
         &.mobile-open {
           transform: translateX(0);
@@ -323,6 +324,18 @@ import { AuthService } from '../../../core/services/auth.service';
         inset: 0;
         background: rgba(0, 0, 0, 0.5);
         z-index: 140;
+      }
+
+      .sidebar-footer {
+        padding: 12px;
+      }
+
+      .user-details {
+        max-width: 130px;
+      }
+
+      .user-name, .user-email {
+        max-width: 130px;
       }
     }
   `],

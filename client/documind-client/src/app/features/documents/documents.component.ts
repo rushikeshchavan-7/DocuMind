@@ -215,8 +215,9 @@ import { DatePipe } from '@angular/common';
 
     .doc-card-actions {
       display: flex;
-      gap: 8px;
+      gap: 6px;
       margin-top: 4px;
+      flex-wrap: wrap;
     }
 
     .btn-sm { padding: 6px 12px; font-size: 12px; }
@@ -229,6 +230,22 @@ import { DatePipe } from '@angular/common';
       align-items: center;
       gap: 12px;
       h3 { font-size: 16px; font-weight: 600; margin-top: 8px; }
+    }
+
+    @media (max-width: 768px) {
+      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
+      .page-title { font-size: 20px; }
+      .upload-zone { padding: 24px 16px; }
+      .upload-text { font-size: 13px; }
+      .upload-hint { font-size: 11px; }
+      .docs-grid { grid-template-columns: 1fr; }
+      .doc-card { padding: 16px; }
+      .doc-card-title { font-size: 13px; }
+      .doc-card-actions {
+        flex-wrap: wrap;
+        .btn-sm { flex: 1; min-width: 0; justify-content: center; }
+      }
     }
   `],
 })

@@ -246,6 +246,10 @@ import { DatePipe } from '@angular/common';
     .doc-name {
       font-weight: 500;
       font-size: 13px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
     }
 
     .empty-state {

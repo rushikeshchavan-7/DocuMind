@@ -360,14 +360,37 @@ import { DatePipe } from '@angular/common';
       gap: 16px;
     }
 
+    .session-title-cell, td.text-muted {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
     @media (max-width: 1200px) {
       .stats-row { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; }
-      .stats-row { grid-template-columns: repeat(2, 1fr); }
+      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .page-title { font-size: 20px; }
+      .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-card { padding: 12px; gap: 10px; }
+      .stat-value { font-size: 16px; }
+      .stat-label { font-size: 10px; }
       .charts-grid { grid-template-columns: 1fr; }
-      .donut-chart { flex-direction: column; }
+      .chart-card { padding: 16px; }
+      .donut-chart { flex-direction: column; align-items: center; }
+      .donut-visual { width: 100px; height: 100px; }
+      .donut-legend { flex-direction: row; flex-wrap: wrap; gap: 10px; justify-content: center; }
+      .bar { width: 18px; }
+      .bar-label { font-size: 10px; }
+      .sessions-table {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        table { min-width: 480px; }
+      }
+      .session-title-cell { max-width: 150px; }
+      .loading-grid { grid-template-columns: 1fr; }
+      .loading-grid .skeleton:last-child { grid-column: span 1; }
     }
   `],
 })

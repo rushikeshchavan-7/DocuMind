@@ -279,9 +279,30 @@ import { DatePipe } from '@angular/common';
       background: var(--bg-secondary);
     }
 
-    .chat-header-left { display: flex; align-items: center; gap: 12px; }
-    .chat-title { font-size: 16px; font-weight: 600; }
-    .chat-subtitle { display: block; }
+    .chat-header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      flex: 1;
+    }
+    .chat-doc-info {
+      min-width: 0;
+      flex: 1;
+    }
+    .chat-title {
+      font-size: 16px;
+      font-weight: 600;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .chat-subtitle {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
 
     .chat-messages {
       flex: 1;
@@ -473,6 +494,10 @@ import { DatePipe } from '@angular/common';
 
     /* Mobile */
     @media (max-width: 768px) {
+      .layout {
+        flex-direction: column;
+      }
+
       .sessions-panel {
         display: none;
         position: fixed;
@@ -490,31 +515,91 @@ import { DatePipe } from '@angular/common';
 
       .chat-main {
         margin-left: 0;
+        width: 100%;
       }
 
       .chat-header {
         padding: 12px 16px;
+        padding-top: 56px;
+      }
+
+      .chat-header-left {
+        gap: 8px;
+      }
+
+      .chat-title {
+        font-size: 14px;
+      }
+
+      .chat-subtitle {
+        font-size: 11px;
+      }
+
+      .chat-header-right {
+        display: none;
       }
 
       .chat-messages {
-        padding: 16px;
+        padding: 12px;
       }
 
       .chat-input-container {
-        padding: 12px 16px 8px;
+        padding: 10px 12px 6px;
+      }
+
+      .chat-input {
+        padding: 10px 12px;
+        font-size: 14px;
+      }
+
+      .send-btn {
+        width: 40px;
+        height: 40px;
+      }
+
+      .input-hint {
+        font-size: 10px;
       }
 
       .message {
         max-width: 95%;
+        gap: 8px;
+      }
+
+      .message-avatar {
+        width: 28px;
+        height: 28px;
+        font-size: 10px;
+      }
+
+      .message-text {
+        font-size: 13px;
+        padding: 10px 12px;
+      }
+
+      .message-role {
+        font-size: 11px;
       }
 
       .chat-welcome {
-        padding: 30px 16px;
+        padding: 24px 12px;
+        h3 { font-size: 16px; }
+        p { font-size: 13px; max-width: 100%; }
+      }
+
+      .welcome-icon {
+        width: 60px;
+        height: 60px;
+        svg { width: 32px; height: 32px; }
       }
 
       .suggestions {
         flex-direction: column;
-        align-items: center;
+        align-items: stretch;
+      }
+
+      .suggestion-chip {
+        text-align: center;
       }
     }
   `],

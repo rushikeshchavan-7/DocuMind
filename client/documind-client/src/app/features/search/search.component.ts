@@ -282,11 +282,41 @@ import { ApiService, SearchResult } from '../../core/services/api.service';
       &:hover { border-color: var(--accent); color: var(--accent); }
     }
 
+    .result-doc-name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      max-width: 200px;
+    }
+
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; }
-      .search-input-wrap { flex-direction: column; padding: 12px; }
-      .search-btn { width: 100%; }
-      .result-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .page-title { font-size: 20px; }
+      .search-bar { padding: 4px; }
+      .search-input-wrap {
+        flex-direction: column;
+        padding: 10px;
+        gap: 8px;
+      }
+      .search-icon { display: none; }
+      .search-input { font-size: 14px; padding: 10px 0; }
+      .search-btn { width: 100%; padding: 10px; }
+      .result-card { padding: 14px; }
+      .result-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+      .result-doc-name { max-width: 100%; }
+      .result-score { align-self: flex-start; }
+      .result-snippet { font-size: 12px; }
+      .result-actions {
+        flex-wrap: wrap;
+        .btn-sm { flex: 1; min-width: 0; justify-content: center; }
+      }
+      .empty-state { padding: 40px 16px; }
+      .search-tips { flex-direction: column; align-items: stretch; }
+      .tip-chip { text-align: center; }
     }
   `],
 })

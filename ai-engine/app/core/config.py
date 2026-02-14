@@ -13,7 +13,7 @@ class Settings(BaseSettings):
 
     # Groq settings (cloud - free tier)
     GROQ_API_KEY: str = ""
-    GROQ_MODEL: str = "meta-llama/llama-4-maverick-17b-128e-instruct"
+    GROQ_MODEL: str = "llama-3.3-70b-versatile"
 
     # ChromaDB
     CHROMA_PERSIST_DIR: str = "./data/chromadb"

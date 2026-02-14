@@ -32,7 +32,7 @@ builder.Services.AddAuthorization();
 builder.Services.AddCors(options =>
 {
     var allowedOrigins = builder.Configuration.GetSection("Cors:Origins").Get<string[]>()
-        ?? new[] { "http://localhost:4200", "https://documind.netlify.app" };
+        ?? new[] { "http://localhost:4200", "https://documind-rag.netlify.app" };
     options.AddPolicy("AllowClient", policy =>
         policy.WithOrigins(allowedOrigins)
             .AllowAnyHeader()
@@ -84,25 +84,44 @@ builder.Services.AddRateLimiter(options =>
 
 var app = builder.Build();
 
-// Auto-apply database schema (development)
-using (var scope = app.Services.CreateScope())
+// Auto-apply database schema
+try
 {
+    using var scope = app.Services.CreateScope();
     var db = scope.ServiceProvider.GetRequiredService<DocuMind.Infrastructure.Data.AppDbContext>();
     db.Database.EnsureCreated();
+    app.Logger.LogInformation("Database schema verified successfully.");
+}
+catch (Exception ex)
+{
+    app.Logger.LogError(ex, "Failed to initialize database. Check your connection string.");
 }
 
 // Middleware pipeline
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseHttpsRedirection();
 app.UseCors("AllowClient");
 app.UseRateLimiter();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();
+
+// Health / root endpoint
+app.MapGet("/", () => Results.Ok(new
+{
+    service = "DocuMind API",
+    version = "1.0.0",
+    status = "running",
+    docs = "/swagger",
+    health = "/health"
+}));
+
+app.MapGet("/health", () => Results.Ok(new
+{
+    status = "healthy",
+    engine = "DocuMind API (.NET 10)",
+    database = "Neon.tech PostgreSQL"
+}));
 
 app.Run();

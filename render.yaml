@@ -19,11 +19,13 @@ services:
       - key: Security__EncryptionKey
         generateValue: true
       - key: AiEngine__BaseUrl
-        value: https://documind-ai.onrender.com
+        value: https://documind-ai-pkng.onrender.com
+      - key: Storage__Path
+        value: ./Storage/Documents
       - key: ASPNETCORE_URLS
         value: http://+:10000
       - key: Cors__Origins__0
-        value: https://documind.netlify.app
+        value: https://documind-rag.netlify.app
       - key: Cors__Origins__1
         value: http://localhost:4200
 
@@ -44,7 +46,7 @@ services:
       - key: GROQ_MODEL
         value: llama-3.3-70b-versatile
       - key: CORS_ORIGINS
-        value: https://documind.netlify.app,https://documind-api.onrender.com,http://localhost:4200
+        value: https://documind-rag.netlify.app,https://documind-api-i1j1.onrender.com,http://localhost:4200
       - key: CHROMA_PERSIST_DIR
         value: ./data/chromadb
       - key: UPLOAD_DIR

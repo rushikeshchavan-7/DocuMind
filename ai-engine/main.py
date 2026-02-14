@@ -29,6 +29,17 @@ app.add_middleware(
 app.include_router(routes.router, prefix="/api")
 
 
+@app.get("/")
+async def root():
+    return {
+        "service": "DocuMind AI Engine",
+        "version": "1.0.0",
+        "status": "running",
+        "docs": "/docs",
+        "health": "/health",
+    }
+
+
 @app.get("/health")
 async def health_check():
     return {

@@ -32,16 +32,6 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
   {
-    path: 'search',
-    loadComponent: () => import('./features/search/search.component').then(m => m.SearchComponent),
-    canActivate: [authGuard],
-  },
-  {
-    path: 'analytics',
-    loadComponent: () => import('./features/analytics/analytics.component').then(m => m.AnalyticsComponent),
-    canActivate: [authGuard],
-  },
-  {
     path: '**',
     redirectTo: 'dashboard',
   },

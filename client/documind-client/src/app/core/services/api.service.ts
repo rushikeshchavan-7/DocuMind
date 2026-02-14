@@ -108,6 +108,10 @@ export class ApiService {
     return this.http.delete<void>(`${this.api}/documents/${id}`);
   }
 
+  reprocessDocument(id: string): Observable<{ message: string }> {
+    return this.http.post<{ message: string }>(`${this.api}/documents/${id}/reprocess`, {});
+  }
+
   getDocumentDownloadUrl(id: string): string {
     return `${this.api}/documents/${id}/download`;
   }

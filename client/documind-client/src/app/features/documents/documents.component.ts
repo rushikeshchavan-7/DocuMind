@@ -85,10 +85,15 @@ import { DatePipe } from '@angular/common';
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                     View
                   </button>
-                  <button class="btn btn-ghost btn-sm" (click)="downloadDoc(doc)">
+                  <button class="btn btn-ghost btn-sm" (click)="downloadDoc(doc)" title="Download">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                   </button>
-                  <button class="btn btn-danger btn-sm" (click)="deleteDoc(doc.id)">
+                  @if (doc.status === 'Ready') {
+                    <button class="btn btn-ghost btn-sm" (click)="reprocessDoc(doc.id)" title="Re-index for AI" [disabled]="reprocessing()">
+                      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    </button>
+                  }
+                  <button class="btn btn-danger btn-sm" (click)="deleteDoc(doc.id)" title="Delete">
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                   </button>
                 </div>
@@ -255,6 +260,7 @@ export class DocumentsComponent implements OnInit {
   documents = signal<DocumentDto[]>([]);
   uploading = signal(false);
   isDragging = signal(false);
+  reprocessing = signal(false);
 
   ngOnInit() {
     this.loadDocuments();
@@ -318,6 +324,20 @@ export class DocumentsComponent implements OnInit {
         a.download = doc.fileName;
         a.click();
         URL.revokeObjectURL(url);
+      },
+    });
+  }
+
+  reprocessDoc(id: string) {
+    this.reprocessing.set(true);
+    this.apiService.reprocessDocument(id).subscribe({
+      next: () => {
+        this.reprocessing.set(false);
+        alert('Document re-indexed successfully! You can now chat with it.');
+      },
+      error: (err) => {
+        this.reprocessing.set(false);
+        alert(err?.error?.message || 'Re-index failed. Try deleting and re-uploading.');
       },
     });
   }

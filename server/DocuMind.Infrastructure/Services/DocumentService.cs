@@ -153,6 +153,30 @@ public class DocumentService : IDocumentService
         return _encryptionService.Decrypt(encrypted);
     }
 
+    public async Task ReprocessAsync(Guid documentId, Guid userId)
+    {
+        var document = await _unitOfWork.Documents.GetByIdAsync(documentId);
+        if (document == null || document.UserId != userId)
+            throw new UnauthorizedAccessException("Document not found or access denied.");
+
+        if (!File.Exists(document.StoragePath))
+            throw new FileNotFoundException("Original file not found on server.");
+
+        // Read and decrypt the file
+        var encrypted = await File.ReadAllBytesAsync(document.StoragePath);
+        var rawBytes = _encryptionService.Decrypt(encrypted);
+
+        // Re-send to AI engine for processing
+        _logger.LogInformation("Re-processing document {DocId} ({FileName})", document.Id, document.OriginalFileName);
+        await _aiEngineClient.ProcessDocumentAsync(document.Id, rawBytes, document.OriginalFileName);
+
+        document.Status = "Ready";
+        document.ProcessedAt = DateTime.UtcNow;
+        await _unitOfWork.Documents.UpdateAsync(document);
+        await _unitOfWork.SaveChangesAsync();
+        _logger.LogInformation("Re-processing complete for document {DocId}", document.Id);
+    }
+
     private static DocumentDto MapToDto(Document doc) => new()
     {
         Id = doc.Id,

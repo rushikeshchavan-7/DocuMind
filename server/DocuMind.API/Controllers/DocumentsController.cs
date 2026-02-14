@@ -59,6 +59,28 @@ public class DocumentsController : ControllerBase
         }
     }
 
+    [HttpPost("{id:guid}/reprocess")]
+    public async Task<IActionResult> Reprocess(Guid id)
+    {
+        try
+        {
+            await _documentService.ReprocessAsync(id, GetUserId());
+            return Ok(new { message = "Document re-indexed successfully." });
+        }
+        catch (UnauthorizedAccessException)
+        {
+            return NotFound();
+        }
+        catch (FileNotFoundException)
+        {
+            return BadRequest(new { message = "Original file not found on server. Please delete and re-upload." });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = $"Reprocess failed: {ex.Message}" });
+        }
+    }
+
     [HttpGet("{id:guid}/download")]
     public async Task<IActionResult> Download(Guid id)
     {

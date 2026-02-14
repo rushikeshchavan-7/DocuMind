@@ -10,4 +10,5 @@ public interface IDocumentService
     Task<DocumentDetailDto?> GetDocumentDetailAsync(Guid documentId, Guid userId);
     Task DeleteAsync(Guid documentId, Guid userId);
     Task<byte[]> DownloadAsync(Guid documentId, Guid userId);
+    Task ReprocessAsync(Guid documentId, Guid userId);
 }

@@ -67,6 +67,12 @@ async def process_document(
 async def chat_with_document(request: ChatRequest):
     """Chat with a document using RAG pipeline."""
     try:
+        # Check if document is indexed; if not, tell the user
+        if not rag_service.is_document_indexed(request.document_id):
+            return ChatResponse(
+                answer="This document's AI index has expired (server restarted). Please go back to Documents and re-upload this file to re-index it. This happens on free-tier hosting when the server sleeps.",
+                sources=[],
+            )
         result = await rag_service.query(request.document_id, request.question)
         return ChatResponse(answer=result["answer"], sources=result["sources"])
     except Exception as e:

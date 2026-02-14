@@ -370,7 +370,7 @@ import { DatePipe } from '@angular/common';
       .stats-row { grid-template-columns: repeat(3, 1fr); }
     }
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .main-content { margin-left: 0; }
       .page-title { font-size: 20px; }
       .stats-row { grid-template-columns: repeat(2, 1fr); gap: 8px; }
       .stat-card { padding: 12px; gap: 10px; }

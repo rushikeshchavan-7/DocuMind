@@ -504,7 +504,7 @@ import { DatePipe } from '@angular/common';
         left: 0;
         top: 0;
         height: 100vh;
-        z-index: 130;
+        z-index: 230;
         margin-left: 0;
         width: 260px;
 
@@ -516,11 +516,12 @@ import { DatePipe } from '@angular/common';
       .chat-main {
         margin-left: 0;
         width: 100%;
+        height: calc(100vh - 52px);
+        margin-top: 52px;
       }
 
       .chat-header {
-        padding: 12px 16px;
-        padding-top: 56px;
+        padding: 10px 12px;
       }
 
       .chat-header-left {
@@ -528,7 +529,7 @@ import { DatePipe } from '@angular/common';
       }
 
       .chat-title {
-        font-size: 14px;
+        font-size: 13px;
       }
 
       .chat-subtitle {
@@ -549,7 +550,7 @@ import { DatePipe } from '@angular/common';
 
       .chat-input {
         padding: 10px 12px;
-        font-size: 14px;
+        font-size: 16px; // prevents iOS zoom
       }
 
       .send-btn {

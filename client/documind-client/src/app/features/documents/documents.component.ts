@@ -233,7 +233,7 @@ import { DatePipe } from '@angular/common';
     }
 
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .main-content { margin-left: 0; }
       .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
       .page-title { font-size: 20px; }
       .upload-zone { padding: 24px 16px; }

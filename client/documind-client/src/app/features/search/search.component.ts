@@ -290,7 +290,7 @@ import { ApiService, SearchResult } from '../../core/services/api.service';
     }
 
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .main-content { margin-left: 0; }
       .page-title { font-size: 20px; }
       .search-bar { padding: 4px; }
       .search-input-wrap {

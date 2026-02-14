@@ -272,14 +272,14 @@ import { DatePipe } from '@angular/common';
     }
 
     @media (max-width: 768px) {
-      .main-content { margin-left: 0; padding: 16px; padding-top: 60px; }
+      .main-content { margin-left: 0; }
       .page-header { flex-direction: column; align-items: flex-start; gap: 12px; }
-      .page-title { font-size: 22px; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-      .stat-card { padding: 14px; }
-      .stat-value { font-size: 18px; }
+      .page-title { font-size: 20px; }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-card { padding: 12px; }
+      .stat-value { font-size: 16px; }
       .documents-table { overflow-x: auto; }
-      .documents-table table { min-width: 500px; }
+      .documents-table table { min-width: 480px; }
     }
   `],
 })

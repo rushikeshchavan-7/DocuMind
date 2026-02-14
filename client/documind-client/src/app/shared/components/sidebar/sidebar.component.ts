@@ -6,10 +6,28 @@ import { AuthService } from '../../../core/services/auth.service';
   selector: 'app-sidebar',
   imports: [RouterLink, RouterLinkActive],
   template: `
-    <!-- Mobile Hamburger -->
-    <button class="hamburger" (click)="toggleMobile()" [class.open]="mobileOpen()">
-      <span></span><span></span><span></span>
-    </button>
+    <!-- Mobile Top Bar -->
+    <div class="mobile-topbar">
+      <button class="hamburger" (click)="toggleMobile()" [class.open]="mobileOpen()">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="mobile-logo">
+        <div class="logo-icon-sm">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="url(#mobGrad)" opacity="0.9"/>
+            <path d="M2 17L12 22L22 17" stroke="url(#mobGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M2 12L12 17L22 12" stroke="url(#mobGrad)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs>
+              <linearGradient id="mobGrad" x1="2" y1="2" x2="22" y2="22">
+                <stop offset="0%" stop-color="#6366f1"/>
+                <stop offset="100%" stop-color="#8b5cf6"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <span class="mobile-logo-text">DocuMind</span>
+      </div>
+    </div>
 
     <!-- Overlay -->
     @if (mobileOpen()) {
@@ -98,6 +116,16 @@ import { AuthService } from '../../../core/services/auth.service';
     </aside>
   `,
   styles: [`
+    /* ===== Mobile Top Bar (hidden on desktop) ===== */
+    .mobile-topbar {
+      display: none;
+    }
+
+    .mobile-logo { display: none; }
+    .mobile-logo-text { display: none; }
+    .logo-icon-sm { display: none; }
+
+    /* ===== Sidebar ===== */
     .sidebar {
       width: 260px;
       height: 100vh;
@@ -207,6 +235,7 @@ import { AuthService } from '../../../core/services/auth.service';
       align-items: center;
       gap: 10px;
       min-width: 0;
+      flex: 1;
     }
 
     .avatar {
@@ -227,6 +256,7 @@ import { AuthService } from '../../../core/services/auth.service';
       display: flex;
       flex-direction: column;
       min-width: 0;
+      max-width: 150px;
     }
 
     .user-name {
@@ -258,59 +288,100 @@ import { AuthService } from '../../../core/services/auth.service';
       justify-content: center;
       transition: var(--transition);
       cursor: pointer;
+      flex-shrink: 0;
       &:hover {
         background: rgba(239, 68, 68, 0.1);
         color: var(--error);
       }
     }
 
-    /* Hamburger - hidden on desktop */
+    /* Hamburger - only visible inside mobile topbar */
     .hamburger {
       display: none;
-      position: fixed;
-      top: 12px;
-      left: 12px;
-      z-index: 200;
-      width: 40px;
-      height: 40px;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      background: var(--bg-secondary);
-      cursor: pointer;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      padding: 10px;
-
-      span {
-        display: block;
-        width: 18px;
-        height: 2px;
-        background: var(--text-primary);
-        border-radius: 1px;
-        transition: var(--transition);
-      }
-
-      &.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-      &.open span:nth-child(2) { opacity: 0; }
-      &.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
     }
 
     .sidebar-overlay {
       display: none;
     }
 
-    /* Mobile */
+    /* ===== MOBILE ===== */
     @media (max-width: 768px) {
-      .hamburger {
+      /* Solid top bar with hamburger + logo */
+      .mobile-topbar {
         display: flex;
+        align-items: center;
+        gap: 12px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 200;
+        height: 52px;
+        padding: 0 12px;
+        background: var(--bg-secondary);
+        border-bottom: 1px solid var(--border);
       }
 
+      .hamburger {
+        display: flex;
+        width: 36px;
+        height: 36px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--bg-primary);
+        cursor: pointer;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        padding: 8px;
+        flex-shrink: 0;
+
+        span {
+          display: block;
+          width: 16px;
+          height: 2px;
+          background: var(--text-primary);
+          border-radius: 1px;
+          transition: var(--transition);
+        }
+
+        &.open span:nth-child(1) { transform: rotate(45deg) translate(4px, 4px); }
+        &.open span:nth-child(2) { opacity: 0; }
+        &.open span:nth-child(3) { transform: rotate(-45deg) translate(4px, -4px); }
+      }
+
+      .mobile-logo {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .logo-icon-sm {
+        display: flex;
+        width: 28px;
+        height: 28px;
+        border-radius: 7px;
+        background: rgba(99, 102, 241, 0.1);
+        align-items: center;
+        justify-content: center;
+      }
+
+      .mobile-logo-text {
+        display: block;
+        font-size: 15px;
+        font-weight: 700;
+        background: var(--accent-gradient);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        letter-spacing: -0.3px;
+      }
+
+      /* Sidebar slides in over the topbar */
       .sidebar {
         transform: translateX(-100%);
-        transition: transform 0.3s ease;
-        z-index: 150;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 250;
         width: 260px;
 
         &.mobile-open {
@@ -322,8 +393,9 @@ import { AuthService } from '../../../core/services/auth.service';
         display: block;
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.5);
-        z-index: 140;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 240;
+        backdrop-filter: blur(2px);
       }
 
       .sidebar-footer {
@@ -331,11 +403,7 @@ import { AuthService } from '../../../core/services/auth.service';
       }
 
       .user-details {
-        max-width: 130px;
-      }
-
-      .user-name, .user-email {
-        max-width: 130px;
+        max-width: 120px;
       }
     }
   `],

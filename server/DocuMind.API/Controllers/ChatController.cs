@@ -33,6 +33,14 @@ public class ChatController : ControllerBase
         {
             return BadRequest(new { message = ex.Message });
         }
+        catch (HttpRequestException ex)
+        {
+            return StatusCode(502, new { message = $"AI Engine unreachable: {ex.Message}" });
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new { message = $"Chat error: {ex.Message}" });
+        }
     }
 
     // --- Session Endpoints ---

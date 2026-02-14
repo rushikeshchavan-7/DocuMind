@@ -721,11 +721,12 @@ export class ChatComponent implements OnInit, AfterViewChecked {
         // Refresh sessions list to show the new/updated session
         this.loadSessions();
       },
-      error: () => {
+      error: (err) => {
+        const detail = err?.error?.message || err?.message || 'Unknown error';
         const errorMsg: ChatMessage = {
           id: crypto.randomUUID(),
           role: 'assistant',
-          content: 'Sorry, I encountered an error processing your request. Please try again.',
+          content: `Error: ${detail}\n\nThis may happen if the AI Engine is waking up (free tier cold start ~30s) or if the document needs to be re-uploaded. Please try again in a moment.`,
           timestamp: new Date().toISOString(),
         };
         this.messages.update(msgs => [...msgs, errorMsg]);

@@ -20,7 +20,7 @@ def _build_llm():
             api_key=settings.GROQ_API_KEY,
             model=settings.GROQ_MODEL,
             temperature=0.3,
-            max_tokens=300,
+            max_completion_tokens=1024,
         )
     else:
         from langchain_ollama import OllamaLLM

@@ -23,7 +23,7 @@ COPY --from=build /app/publish .
 # Create storage dir
 RUN mkdir -p Storage/Documents
 
-EXPOSE 10000
-ENV ASPNETCORE_URLS=http://+:10000
+EXPOSE 7860
+ENV ASPNETCORE_URLS=http://+:7860
 
 ENTRYPOINT ["dotnet", "DocuMind.API.dll"]

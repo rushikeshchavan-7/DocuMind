@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://documind-api-i1j1.onrender.com/api',
-  aiEngineUrl: 'https://documind-ai-pkng.onrender.com/api',
+  apiUrl: 'https://Therushi31-documind-api.hf.space/api',
+  aiEngineUrl: 'https://Therushi31-documind-ai.hf.space/api',
 };

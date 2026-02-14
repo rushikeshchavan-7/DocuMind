@@ -16,7 +16,7 @@ COPY . .
 # Create data dirs
 RUN mkdir -p data/chromadb data/uploads
 
-EXPOSE 8000
+EXPOSE 7860
 
-# Render.com sets PORT env var; default to 8000 locally
-CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}
+# HF Spaces expects port 7860; PORT env var overrides for other platforms
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-7860}
